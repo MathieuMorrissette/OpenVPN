@@ -157,6 +157,11 @@ iptables don't save by themselves so we can install this
 
 ## Client configuration
 
+Get the base configuration and adjust it with the server configuration
+
+```cp /usr/share/doc/openvpn/examples/sample-config-files/client.conf ~/base.conf```
+
+## Start OpenVPN
 
 
 ### Source
