@@ -135,5 +135,29 @@ We can adjust this setting by modifying the /etc/sysctl.conf file:
 
 ```nano /etc/sysctl.conf```
 
+Inside, look for the line that sets net.ipv4.ip_forward. Remove the "#" character from the beginning of the line to uncomment that setting:
+
+```net.ipv4.ip_forward=1```
+
+To read the file and adjust the values for the current session, type:
+
+```sysctl -p```
+
+## Allow traffic to the internet
+
+We must add a rule in iptables that will forward traffic from nat to eth0
+
+```iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -o eth0 -j MASQUERADE```
+
+iptables don't save by themselves so we can install this 
+- iptables-persistent
+
+```iptables-save > /etc/iptables/rules.v4```
+```iptables-restore < /etc/iptables/rules.v4```
+
+## Client configuration
+
+
+
 ### Source
 [https://www.digitalocean.com/community/tutorials/how-to-set-up-an-openvpn-server-on-ubuntu-18-04](https://www.digitalocean.com/community/tutorials/how-to-set-up-an-openvpn-server-on-ubuntu-18-04)
