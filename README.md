@@ -161,6 +161,8 @@ Get the base configuration and adjust it with the server configuration
 
 ```cp /usr/share/doc/openvpn/examples/sample-config-files/client.conf ~/base.conf```
 
+Don't forget to set key-redirection to 1
+
 ## Start OpenVPN
 
 You're finally ready to start the OpenVPN service on your server. This is done using the systemd utility systemctl.
