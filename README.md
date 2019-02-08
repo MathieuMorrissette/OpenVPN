@@ -71,10 +71,69 @@ Make sure to still be in the folder with your variables still configured.
 
 ```./build-key client1```
 
+If you don't want a password just leave it blank when prompted
+
 ## Configuring the OpenVPN Server
 
+We first need to copy the keys we generated to the openvpn directory 
 
+```cd keys```
+```cp ca.crt server.crt server.key ta.key dh2048.pem /etc/openvpn```
 
+Then we need to get the sample configuration file to use as a base
+
+```gunzip -c /usr/share/doc/openvpn/examples/sample-config-files/server.conf.gz | sudo tee /etc/openvpn/server.conf```
+
+Edit the configuration file
+
+```nano /etc/openvpn/server.conf```
+
+First, find the HMAC section by looking for the tls-auth directive. Remove the ";" to uncomment the tls-auth line. Below this, add the key-direction parameter set to "0":
+
+```
+tls-auth ta.key 0 # This file is secret
+key-direction 0
+```
+
+Next, find the section on cryptographic ciphers by looking for the commented out cipher lines. The AES-128-CBC cipher offers a good level of encryption and is well supported. Remove the ";" to uncomment the cipher AES-128-CBC line:
+
+```cipher AES-128-CBC```
+
+Below this, add an auth line to select the HMAC message digest algorithm. For this, SHA256 is a good choice:
+
+```auth SHA256```
+
+Finally, find the user and group settings and remove the ";" at the beginning of to uncomment those lines:
+
+```
+user nobody
+group nogroup
+```
+
+### Optional
+
+We can push gateway and DNS servers to the VPN clients
+
+Find the redirect-gateway section and remove the semicolon ";" from the beginning of the redirect-gateway line to uncomment it:
+
+```push "redirect-gateway def1 bypass-dhcp"```
+
+Just below this, find the dhcp-option section. Again, remove the ";" from in front of both of the lines to uncomment them:
+
+```
+push "dhcp-option DNS 208.67.222.222"
+push "dhcp-option DNS 208.67.220.220"
+```
+
+I recommend using port 443 and protocol tcp as they go through firewalls the easiest
+
+## Allow Forwarding of traffic
+
+First, we need to allow the server to forward traffic. This is fairly essential to the functionality we want our VPN server to provide.
+
+We can adjust this setting by modifying the /etc/sysctl.conf file:
+
+```nano /etc/sysctl.conf```
 
 ### Source
 [https://www.digitalocean.com/community/tutorials/how-to-set-up-an-openvpn-server-on-ubuntu-18-04](https://www.digitalocean.com/community/tutorials/how-to-set-up-an-openvpn-server-on-ubuntu-18-04)
