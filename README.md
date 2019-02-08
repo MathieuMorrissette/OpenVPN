@@ -163,6 +163,19 @@ Get the base configuration and adjust it with the server configuration
 
 ## Start OpenVPN
 
+You're finally ready to start the OpenVPN service on your server. This is done using the systemd utility systemctl.
+
+Start the OpenVPN server by specifying your configuration file name as an instance variable after the systemd unit file name. The configuration file for your server is called /etc/openvpn/server.conf, so add @server to end of your unit file when calling it:
+
+```systemctl start openvpn@server```
+
+Double-check that the service has started successfully by typing:
+
+```systemctl status openvpn@server```
+
+After starting the service, enable it so that it starts automatically at boot:
+
+```systemctl enable openvpn@server```
 
 ### Source
 [https://www.digitalocean.com/community/tutorials/how-to-set-up-an-openvpn-server-on-ubuntu-18-04](https://www.digitalocean.com/community/tutorials/how-to-set-up-an-openvpn-server-on-ubuntu-18-04)
