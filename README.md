@@ -59,6 +59,20 @@ Follow the on-screen instructions
 
 ```./build-dh```
 
+Afterwards, we can generate an HMAC signature to strengthen the server's TLS integrity verification capabilities:
+
+```openvpn --genkey --secret keys/ta.key```
+
+## Generating clients keys
+
+Make sure to still be in the folder with your variables still configured.
+
+```./clean-all```
+
+```./build-key client1```
+
+## Configuring the OpenVPN Server
+
 
 
 
