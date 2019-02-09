@@ -98,7 +98,7 @@ key-direction 0
 
 Next, find the section on cryptographic ciphers by looking for the commented out cipher lines. The AES-128-CBC cipher offers a good level of encryption and is well supported. Remove the ";" to uncomment the cipher AES-128-CBC line:
 
-```cipher AES-128-CBC```
+```cipher AES-256-CBC```
 
 Below this, add an auth line to select the HMAC message digest algorithm. For this, SHA256 is a good choice:
 
@@ -154,6 +154,7 @@ iptables don't save by themselves so we can install this
 - iptables-persistent
 
 ```iptables-save > /etc/iptables/rules.v4```
+
 ```iptables-restore < /etc/iptables/rules.v4```
 
 ## Client configuration
