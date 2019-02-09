@@ -1,12 +1,13 @@
 ## Requirements
  - openvpn 
  - easy-rsa
+ 
 ## Generate a Certificate Authority
-We need a certificate authority to create certificates for client. 
+We need a certificate authority to create certificates for clients and the server. 
 In my use case the certificate authority server will be the same as the
 OpenVPN server.
 
-We start by first creating the directory that will contain our certificates.
+We start by first creating the certificate authority directory that will contain our certificates.
 With the following command :
 
 ```make-cadir /etc/openvpn/easy-rsa/```
